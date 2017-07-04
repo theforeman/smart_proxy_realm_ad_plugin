@@ -1,0 +1,1 @@
+# A smart-proxy plugin for realm active directory integration
