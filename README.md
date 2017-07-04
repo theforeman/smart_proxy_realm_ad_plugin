@@ -1,3 +1,5 @@
+WORK IN PROGRESS
+
 A smart-proxy realm provider plugin for direct integration 
 with Active Directory.
 
