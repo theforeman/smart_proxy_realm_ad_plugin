@@ -1,7 +1,7 @@
 A smart-proxy realm provider plugin for direct integration 
 with Active Directory.
 
-You can use this to make foreman cabable of managing computer accounts and
-password in the host management lifecycle.
+Using this plugin, foreman is capable of managing a hosts Active Directory
+credential and account during the host lifecycle.
 
 
