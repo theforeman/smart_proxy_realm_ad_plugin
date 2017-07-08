@@ -24,6 +24,8 @@ through the logger of smart-proxy.
 
 Use curl and implement the plugin operations: join, reset, delete
 
+## Objective 5. Implement and write tests
+
 # Installation
 lorem ipsum
 
