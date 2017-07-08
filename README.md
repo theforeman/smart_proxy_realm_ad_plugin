@@ -17,8 +17,12 @@ Load a dummy version of the plugin and ensure its loaded with smart-proxy.
 
 ## Objective 3. Make sure the plugins API functions gets invoked through the realm api
 
+Use curl and trigger join, reset and delete api operations. Log the request
+through the logger of smart-proxy.
+
 ## Objective 4. Implement different realm api operations
 
+Use curl and implement the plugin operations: join, reset, delete
 
 # Installation
 lorem ipsum
