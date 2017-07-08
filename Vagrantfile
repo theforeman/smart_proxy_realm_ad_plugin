@@ -1,33 +1,36 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
-  config.vm.box = "rhel73"
 
-  # config.vm.box_check_update = false
+  config.vm.define "smart_proxy" do |smart_proxy|
+    smart_proxy.vm.box = "centos/7"
+    smart_proxy.vm.network "public_network"
+    smart_proxy.vm.hostname = "smartproxy"
+    smart_proxy.vm.synced_folder ".", "/src"
+    smart_proxy.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+    smart_proxy.vm.provision "shell", inline: <<-SHELL
+      yum update -y
+    SHELL
+  end
+
+  #config.vm.define "domain_controller" do |domain_controller|
+  #  domain_controller.vm.box = "mwrock/Windows2012R2"
+  #  domain_controller.vm.network "public_network"
+  #  domain_controller.vm.network "forwarded_port", guest: 3389, host: 3389
+  #  domain_controller.vm.hostname = "dc"
+  #  domain_controller.vm.provider "virtualbox" do |vb|
+  #    vb.memory = "2048"
+  #  end
+  #end
 
   # config.vm.network "forwarded_port", guest: 80, host: 8080
-
   # config.vm.network "private_network", ip: "192.168.33.10"
-
   # config.vm.network "public_network"
-
   # config.vm.synced_folder "../data", "/vagrant_data"
-
   # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
   # end
-  #
-  # config.push.define "atlas" do |push|
-  #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
-  # end
-
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
 end
