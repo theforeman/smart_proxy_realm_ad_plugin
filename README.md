@@ -1,5 +1,8 @@
 # Description
-lorem ipsum
+A plugin to foreman smart-proxy that lets you 
+integrate directly with Active Directory to manage hosts
+during creation, rebuilding and deletion of their 
+computer account and the credentials.
 
 # Installation
 lorem ipsum

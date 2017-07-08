@@ -13,10 +13,10 @@ bundle
 
 # To configure this plugin you can use the template from 
 # settings.d/smart_proxy_realm_ad.yml.example
+
+# You must place smart_proxy_realm_ad_plugin.yml config file (based on this template)
+# to your smart-proxy config/settings.d/directory.
+
 cat > /home/vagrant/smart-proxy/settings.d/smart_proxy_realm_ad_plugin.yml << EOF
 EOF
-
-
-# You must place smart_proxy_realm_ad.yml config file (based on this template)
-# to your smart-proxy config/settings.d/directory.
 
