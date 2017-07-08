@@ -1,3 +1,30 @@
+# Description
+lorem ipsum
+
+# Installation
+lorem ipsum
+
+### Prerequisites
+lorem ipsum
+
+```
+some commands
+```
+
+### Building
+```
+some commands
+```
+
+# Synposis
+
+
+# Notes
+
+# Authors
+* Mårten Cassel
+ 
+ 
 WORK IN PROGRESS
 
 A smart-proxy realm provider plugin for direct integration 
