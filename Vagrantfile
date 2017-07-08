@@ -14,6 +14,7 @@ Vagrant.configure("2") do |config|
       yum update -y
     SHELL
     smart_proxy.vm.provision "shell", path: "./scripts/setup_smart_proxy.sh"
+    smart_proxy.vm.provision "shell", path: "./scripts/install_radcli.sh"
   end
 
   #config.vm.define "domain_controller" do |domain_controller|
