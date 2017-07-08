@@ -18,13 +18,6 @@ some commands
 
 # Synposis
 
-### or connect using local credentials cache
-
-### Join
-
-### Reset Password
-
-### Delete
 
 # Notes
 
