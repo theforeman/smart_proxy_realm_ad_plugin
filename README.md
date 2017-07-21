@@ -6,7 +6,7 @@ computer account and the credentials.
 
 # TODO
 
-## Objective 1. Setup a dev environment 
+<del>## Objective 1. Setup a dev environment</del>
 
 The dev environment consists of a Active Directory domain controller 
 plus a centos 7 server running smart-proxy
