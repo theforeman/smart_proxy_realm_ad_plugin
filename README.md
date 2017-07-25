@@ -1,5 +1,5 @@
 # Work in progress
-Working in this...
+Not ready yet... merging code from the closed smart_proxy pull request.
 
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
