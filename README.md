@@ -12,6 +12,33 @@ To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` an
     
     :use_provider: realm_ad
     
+## Testing
+
+     bundle exec rake test
+
+## Install dependencies
+
+### rkerberos
+```
+sudo gem install rkerberos
+```
+
+### radcli
+
+#### radcli prereqs (ubuntu)
+```
+sudo apt-get install ruby gem ruby-dev
+sudo gem install rake bundler rakecompiler rspec
+sudo apt-get install automake autoconf xmlto xsltproc libkrb5-dev libldap2-dev libsasl2-dev
+```
+
+```
+git clone https://github.com/martencassel/radcli
+cd radcli
+rake build
+gem install pkg/radcli-0.0.1.gem
+```
+
 ## Contributing
 
 Fork and send a Pull Request. Thanks!
