@@ -36,7 +36,7 @@ sudo apt-get install automake autoconf xmlto xsltproc libkrb5-dev libldap2-dev l
 git clone https://github.com/martencassel/radcli
 cd radcli
 rake build
-gem install pkg/radcli-0.0.1.gem
+gem install pkg/radcli-0.1.0.gem
 ```
 
 ## Contributing
