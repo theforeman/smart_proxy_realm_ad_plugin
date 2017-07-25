@@ -1,5 +1,6 @@
 # Description
-A realm provider plugin to smart-proxy to directly integrate with Active Directory.
+A realm provider plugin for smart-proxy to
+provision hosts in Active Directory.
 
 # Configuration
 
