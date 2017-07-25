@@ -1,0 +1,8 @@
+---
+# Authentication for Kerberos-based Realms
+:realm: EXAMPLE.COM
+
+:keytab_path:  /etc/foreman-proxy/realm_ad.keytab
+:principal: realm-proxy@EXAMPLE.COM
+
+:domain_controller: dc.example.com

@@ -1,4 +1,0 @@
-+:realm: EXAMPLE.ORG
-+:keytab_path: /home/vagrant/ad.keytab
-+:principal: Administrator@EXAMPLE.ORG
-+:domain_controller: dc.example.org

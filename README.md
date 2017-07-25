@@ -8,6 +8,8 @@ See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins
 
 To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` and set:
 
+    :enabled: true
+    
     :use_provider: realm_ad
     
 ## Contributing

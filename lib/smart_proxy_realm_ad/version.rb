@@ -1,5 +1,5 @@
 module Proxy
-    module ADRealm
+    module AdRealm
         VERSION = '0.1'
     end
 end
