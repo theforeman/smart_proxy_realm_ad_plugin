@@ -1,2 +1,9 @@
-.vagrant/
-todo.txt
+.idea
+*.gem
+pkg/
+logs
+Gemfile.lock
+.rbenv*
+.rvmrc*
+.ruby-*
+tags
