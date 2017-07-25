@@ -2,7 +2,13 @@
 This plugin adds a new realm provider for managing hosts in Active Directory.
 
 ## Installation 
-See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins
+See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins.
+
+```
+cd smart_proxy_realm_ad_plugin
+
+bundle install
+```
 
 ## Configuration
 

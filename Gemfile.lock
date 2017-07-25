@@ -25,6 +25,8 @@ GEM
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
+    radcli (0.1.0)
+      rake-compiler
     rake (12.0.0)
     rake-compiler (1.0.4)
       rake
@@ -44,6 +46,7 @@ PLATFORMS
 
 DEPENDENCIES
   mocha
+  radcli
   rake
   rkerberos
   smart_proxy!
