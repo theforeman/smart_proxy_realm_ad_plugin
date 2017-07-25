@@ -15,6 +15,8 @@ bundle install && gem build smart_proxy_realm_ad_plugin.gemspec \
 Edit 'bundler.d/Gemfile.local.rb' and set:
 
     gem 'smart_proxy_realm_ad_plugin'
+    gem 'radcli'
+    gem 'rkerberos', '>= 0.1.1'
 
 ## Configuration
 

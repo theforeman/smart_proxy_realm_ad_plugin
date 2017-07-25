@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('mocha')
   s.add_development_dependency('test-unit')
   s.add_development_dependency('rkerberos')
-  s.add_development_dependency('radcli')
+#  s.add_development_dependency('radcli')
 end
