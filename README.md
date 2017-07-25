@@ -1,6 +1,5 @@
 # Description
-A realm provider plugin for smart-proxy to
-provision hosts in Active Directory.
+This plugin adds a new realm provider for managing hosts in Active Directory.
 
 # Configuration
 
