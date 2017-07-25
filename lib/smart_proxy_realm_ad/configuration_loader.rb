@@ -5,7 +5,7 @@ module Proxy::AdRealm
         end
 
         def load_dependency_injection_wirings(container_instance, settings)
-            container_instance.depedency : realm_provider_impl,
+            container_instance.dependency:realm_provider_impl,
                 lambda {
                     ::Proxy::AdRealm::Provider.new(
                         settings[:realm],
