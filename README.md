@@ -1,7 +1,10 @@
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
 
-# Configuration
+## Installation 
+See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins
+
+## Configuration
 
 To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` and set:
 
