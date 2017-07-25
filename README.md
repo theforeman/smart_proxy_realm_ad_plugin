@@ -5,9 +5,11 @@ This plugin adds a new realm provider for managing hosts in Active Directory.
 See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins.
 
 ```
+git clone https://github.com/martencassel/smart_proxy_realm_ad_plugin
 cd smart_proxy_realm_ad_plugin
-
 bundle install
+gem build smart_proxy_realm_ad_plugin.gemspec
+sudo gem install smart_proxy_realm_ad_plugin-0.1.gem
 ```
 
 ## Configuration
