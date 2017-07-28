@@ -4,6 +4,15 @@ Not ready yet... merging code from the closed smart_proxy pull request.
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
 
+It does the following:
+
+  * When hosts are created in foreman it will create a new computer account in active directory
+    and return the password to foreman so it can be used in the kickstart file.
+    
+  * When hosts are rebuilt it will reset the computers account and return a new password to the kickstart file.
+
+  * When hosts are deleted in foreman it will delete the associated computer account in active directory.
+  
 ## Installation 
 See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins.
 
