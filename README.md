@@ -5,7 +5,8 @@ Not ready yet, but almost....
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
 Useful if you directly integrate with Active Directory and dont use FreeIPA. 
-If you use this plugin you dont have to write some scripts yourself and you let foreman/foreman-proxy do this.
+
+If you use this plugin you let foreman-proxy provision/deprovision computer accounts and password and also distribute the password to a kickstart file.
 
 It does the following:
 
