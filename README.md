@@ -4,6 +4,8 @@ Not ready yet, but almost....
 
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
+Useful if you directly integrate with Active Directory and through FreeIPA. Using this plugin
+you dont have to hack together this yourself.
 
 It does the following:
 
