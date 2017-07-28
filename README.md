@@ -4,8 +4,8 @@ Not ready yet, but almost....
 
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
-Useful if you directly integrate with Active Directory and through FreeIPA. Using this plugin
-you dont have to hack together this yourself.
+Useful if you directly integrate with Active Directory and dont use FreeIPA. 
+If you use this plugin you dont have to write some scripts yourself and you let foreman/foreman-proxy do this.
 
 It does the following:
 
