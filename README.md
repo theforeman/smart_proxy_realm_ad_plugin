@@ -1,3 +1,5 @@
+# !!! WORK IN PROGRESS !!!
+
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
 

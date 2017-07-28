@@ -24,9 +24,11 @@ module Proxy::AdRealm
         end
 
         def create realm, hostname, params
+            logger.info "Proxy::AdRealm: create... #{realm}, #{hostname}, #{params}"
         end
 
         def delete realm, hostname
+            logger.info "Proxy::AdRealm: delete... #{realm}, #{hostname}"
         end
 
         private
