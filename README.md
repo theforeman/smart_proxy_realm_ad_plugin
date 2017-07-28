@@ -16,6 +16,8 @@ It does the following:
 ## Installation 
 See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins.
 
+Install this gem cloning this repo and do the following:
+
 ```
 git clone https://github.com/martencassel/smart_proxy_realm_ad_plugin
 cd smart_proxy_realm_ad_plugin
@@ -23,6 +25,8 @@ bundle install && gem build smart_proxy_realm_ad_plugin.gemspec \
     && sudo gem install smart_proxy_realm_ad_plugin-0.1.gem
 
 ```
+
+Then add the depedencies to to smart-proxy bundler.d directory like below:
 
 Edit 'bundler.d/Gemfile.local.rb' and set:
 
@@ -32,6 +36,8 @@ Edit 'bundler.d/Gemfile.local.rb' and set:
     gem 'passgen'
 
 ## Configuration
+
+Then enable this as a realm provider in foreman-proxy
 
 To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` and set:
 
@@ -44,6 +50,11 @@ To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` an
      bundle exec rake test
 
 ## Install dependencies
+
+Install the gem dependencies first:
+
+  1. rkerberos
+  2. radcli
 
 ### rkerberos
 ```
