@@ -1,14 +1,16 @@
+require 'rubygems'
 require 'test_helper'
 require 'smart_proxy_realm_ad/provider'
+require 'radcli'
 
 class RealmAdTest < Test::Unit::TestCase
   def setup
     @realm = 'test_realm'
-    @provider = Proxy::AdRealm::Provider.new('test_realm', 'keytab_path', 'principal', 'domain-controller')
+    @provider = Proxy::AdRealm::Provider.new('example.com', 'keytab_path', 'principal', 'domain-controller')
   end
 
   def test_create_host
-    hostname = 'hostname'
+    hostname = 'host.example.com'
     password = 'a_password'
     params = {}
     params[:rebuild] = "false"
@@ -24,7 +26,7 @@ class RealmAdTest < Test::Unit::TestCase
   end
 
   def test_create_rebuild
-    hostname = 'hostname'
+    hostname = 'host.example.com'
     password = 'a_password'
     params = {}
     params[:rebuild] = "true"

@@ -1,5 +1,6 @@
 require 'proxy/kerberos'
-#require 'radcli'
+require 'radcli'
+require 'passgen'
 
 module Proxy::AdRealm
     class Provider
@@ -74,7 +75,7 @@ module Proxy::AdRealm
 
         def do_host_rebuild hostfqdn, password
             hostname = hostfqdn_to_hostname hostfqdn
-            racli_password hostname, password
+            radcli_password hostname, password
 
         end
 
@@ -103,7 +104,7 @@ module Proxy::AdRealm
         end
 
         def generate_password
-            return "randompassword"
+            Passgen::generate(:length => 20)
         end
 
         def racli_password hostname, password
