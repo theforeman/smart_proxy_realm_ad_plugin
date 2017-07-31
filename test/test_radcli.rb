@@ -46,3 +46,12 @@ enroll.password()
 enroll = Adcli::AdEnroll.new(adconn)
 enroll.set_computer_name("server1")
 enroll.delete()
+
+
+# Create a computer account object in specific OU
+enroll = Adcli::AdEnroll.new(adconn)
+enroll.set_domain_ou('OU=Computers,OU=Foobar,DC=example,DC=com')
+enroll.set_computer_name("server1")
+enroll.set_host_fqdn("server1.example.com")
+enroll.set_computer_password("password")
+enroll.join()
