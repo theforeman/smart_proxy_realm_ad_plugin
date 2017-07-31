@@ -1,6 +1,6 @@
 # Status
 
-Not ready yet, but almost....
+Hi!!! Please try this out and test it. I need feedback.
 
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
