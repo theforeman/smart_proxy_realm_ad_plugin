@@ -14,6 +14,7 @@ module Proxy::AdRealm
             @principal = principal
             @domain_controller = domain_controller
             @domain = realm.downcase
+            logger.info "Proxy::AdRealm: initialize... #{@realm}, #{@keytab_path}, #{@principal}, #{@domain_controller}, #{@domain}"
         end
 
         def check_realm realm
@@ -27,7 +28,7 @@ module Proxy::AdRealm
         def create realm, hostfqdn, params
             logger.info "Proxy::AdRealm: create... #{realm}, #{hostfqdn}, #{params}"
             check_realm realm
-            kinit_racdli_connect
+            kinit_radcli_connect
 
             password = generate_password
             result = { :randompassword => password }
@@ -47,7 +48,7 @@ module Proxy::AdRealm
 
         def delete realm, hostfqdn
             logger.info "Proxy::AdRealm: delete... #{realm}, #{hostfqdn}"
-            kinit_radcli_connect()
+            kinit_radcli_connect
             check_realm realm
             begin
                 radcli_delete hostfqdn
@@ -79,7 +80,7 @@ module Proxy::AdRealm
 
         end
 
-        def kinit_racdli_connect
+        def kinit_radcli_connect
             init_krb5_ccache @keytab_path, @principal
             @adconn = radcli_connect()
         end
@@ -107,7 +108,7 @@ module Proxy::AdRealm
             Passgen::generate(:length => 20)
         end
 
-        def racli_password hostname, password
+        def radcli_password hostname, password
             # Reset a computer's password
             enroll = Adcli::AdEnroll.new(@adconn)
             enroll.set_computer_name(hostname)
