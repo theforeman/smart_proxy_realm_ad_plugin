@@ -33,15 +33,11 @@ module Proxy::AdRealm
             password = generate_password
             result = { :randompassword => password }
 
-            begin
-                if params[:rebuild] == "true"
-                    do_host_rebuild hostfqdn, password
-                else
-                    do_host_create hostfqdn, password
-                end
-            rescue 
-                raise
-            end 
+            if params[:rebuild] == "true"
+              do_host_rebuild hostfqdn, password
+            else
+              do_host_create hostfqdn, password
+            end
 
             JSON.pretty_generate(result)
         end
@@ -50,11 +46,7 @@ module Proxy::AdRealm
             logger.info "Proxy::AdRealm: delete... #{realm}, #{hostfqdn}"
             kinit_radcli_connect
             check_realm realm
-            begin
-                radcli_delete hostfqdn
-                rescue Adcli::AdEnroll::Exception =>
-                raise
-            end
+            radcli_delete hostfqdn
         end
 
         private
@@ -63,10 +55,10 @@ module Proxy::AdRealm
             begin
               host_fqdn_split = host_fqdn.split('.')
               host_fqdn_split[0]
-            rescue  
-              logger.debug "hostfqdn_to_hostname error"
-              raise
-            end        
+            rescue => e
+              logger.debug "hostfqdn_to_hostname error: #{e}"
+              raise e
+            end
         end
 
         def do_host_create hostfqdn, password
