@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rake')
   s.add_development_dependency('mocha')
   s.add_development_dependency('test-unit')
-  s.add_development_dependency('rkerberos')
-  s.add_development_dependency('passgen')
-  s.add_development_dependency('radcli')
+  s.add_dependency('rkerberos')
+  s.add_dependency('passgen')
+  s.add_dependency('radcli')
 end
