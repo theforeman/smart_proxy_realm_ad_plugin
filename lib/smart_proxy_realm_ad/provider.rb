@@ -8,13 +8,14 @@ module Proxy::AdRealm
         include Proxy::Util
         include Proxy::Kerberos
 
-        def initialize(realm, keytab_path, principal, domain_controller)
+        def initialize(realm, keytab_path, principal, domain_controller, ou)
             @realm = realm
             @keytab_path = keytab_path
             @principal = principal
             @domain_controller = domain_controller
             @domain = realm.downcase
-            logger.info "Proxy::AdRealm: initialize... #{@realm}, #{@keytab_path}, #{@principal}, #{@domain_controller}, #{@domain}"
+            @ou = ou
+            logger.info "Proxy::AdRealm: initialize... #{@realm}, #{@keytab_path}, #{@principal}, #{@domain_controller}, #{@domain}, #{ou}"
         end
 
         def check_realm realm
@@ -92,6 +93,7 @@ module Proxy::AdRealm
             enroll = Adcli::AdEnroll.new(@adconn)
             enroll.set_computer_name(hostname)
             enroll.set_host_fqdn(hostfqdn)
+            enroll.set_domain_ou(@ou) if @ou
             enroll.set_computer_password(password)
             enroll.join()
         end
@@ -104,6 +106,7 @@ module Proxy::AdRealm
             # Reset a computer's password
             enroll = Adcli::AdEnroll.new(@adconn)
             enroll.set_computer_name(hostname)
+            enroll.set_domain_ou(@ou) if @ou
             enroll.set_computer_password(password)
             enroll.password()
         end
@@ -112,6 +115,7 @@ module Proxy::AdRealm
             # Delete a computer's account
             enroll = Adcli::AdEnroll.new(@adconn)
             enroll.set_computer_name(hostname)
+            enroll.set_domain_ou(@ou) if @ou
             enroll.delete()
         end
 
