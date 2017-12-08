@@ -11,7 +11,8 @@ module Proxy::AdRealm
                         settings[:realm],
                         settings[:keytab_path],
                         settings[:principal],
-                        settings[:domain_controller]
+                        settings[:domain_controller],
+                        settings[:ou]
                     )
                 }
         end

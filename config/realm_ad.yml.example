@@ -5,4 +5,7 @@
 :keytab_path:  /etc/foreman-proxy/realm_ad.keytab
 :principal: realm-proxy@EXAMPLE.COM
 
+# Optional: OU where the machine account shall be placed
+#:ou: OU=Linux,OU=Servers,DC=example,DC=com
+
 :domain_controller: dc.example.com
