@@ -1,6 +1,5 @@
 require 'proxy/kerberos'
 require 'radcli'
-require 'passgen'
 
 module Proxy::AdRealm
   class Provider
@@ -93,7 +92,8 @@ module Proxy::AdRealm
     end
 
     def generate_password
-      Passgen.generate(:length => 20)
+      characters = ('A'..'Z').to_a + ('a'..'z').to_a + (0..9).to_a
+      Array.new(20) { characters.sample }.join
     end
 
     def radcli_password(hostname, password)
