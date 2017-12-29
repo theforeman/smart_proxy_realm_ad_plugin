@@ -1,5 +1,6 @@
 require 'proxy/kerberos'
 require 'radcli'
+require 'digest'
 
 module Proxy::AdRealm
   class Provider
@@ -7,14 +8,19 @@ module Proxy::AdRealm
     include Proxy::Util
     include Proxy::Kerberos
 
-    def initialize(realm, keytab_path, principal, domain_controller, ou)
-      @realm = realm
-      @keytab_path = keytab_path
-      @principal = principal
-      @domain_controller = domain_controller
-      @domain = realm.downcase
-      @ou = ou
-      logger.info "Proxy::AdRealm: initialize... #{@realm}, #{@keytab_path}, #{@principal}, #{@domain_controller}, #{@domain}, #{@ou}"
+    attr_reader :realm, :keytab_path, :principal, :domain_controller, :domain, :ou, :computername_prefix, :computername_hash, :computername_use_fqdn
+
+    def initialize(options = {})
+      @realm = options[:realm]
+      @keytab_path = options[:keytab_path]
+      @principal = options[:principal]
+      @domain_controller = options[:domain_controller]
+      @domain = options[:realm].downcase
+      @ou = options[:ou]
+      @computername_prefix = options[:computername_prefix]
+      @computername_hash = options.fetch(:computername_hash, false)
+      @computername_use_fqdn = options.fetch(:computername_use_fqdn, false)
+      logger.info 'Proxy::AdRealm: initialize...'
     end
 
     def check_realm(realm)
@@ -33,10 +39,12 @@ module Proxy::AdRealm
       password = generate_password
       result = { randompassword: password }
 
+      computername = hostfqdn_to_computername(hostfqdn)
+
       if params[:rebuild] == 'true'
-        do_host_rebuild(hostfqdn, password)
+        radcli_password(computername, password)
       else
-        do_host_create(hostfqdn, password)
+        radcli_join(hostfqdn, computername, password)
       end
 
       JSON.pretty_generate(result)
@@ -46,24 +54,31 @@ module Proxy::AdRealm
       logger.info "Proxy::AdRealm: delete... #{realm}, #{hostfqdn}"
       kinit_radcli_connect
       check_realm(realm)
-      radcli_delete(hostfqdn)
+      computername = hostfqdn_to_computername(hostfqdn)
+      radcli_delete(computername)
     end
 
     private
 
-    def hostfqdn_to_hostname(host_fqdn)
-      host_fqdn_split = host_fqdn.split('.')
-      host_fqdn_split.first
+    def hostfqdn_to_computername(hostfqdn)
+      computername = hostfqdn
+
+      # strip the domain from the host
+      computername = computername.split('.').first unless computername_use_fqdn
+
+      # generate the SHA256 hexdigest from the computername
+      computername = Digest::SHA256.hexdigest(computername) if computername_hash
+
+      # apply prefix if it has not already been applied
+      computername = computername_prefix + computername if apply_computername_prefix?(computername)
+
+      # limit length to 15 characters and upcase the computername
+      # see https://support.microsoft.com/en-us/kb/909264
+      computername[0, 15].upcase
     end
 
-    def do_host_create(hostfqdn, password)
-      hostname = hostfqdn_to_hostname(hostfqdn)
-      radcli_join(hostfqdn, hostname, password)
-    end
-
-    def do_host_rebuild(hostfqdn, password)
-      hostname = hostfqdn_to_hostname hostfqdn
-      radcli_password(hostname, password)
+    def apply_computername_prefix?(computername)
+      !computername_prefix.nil? && !computername_prefix.empty? && (computername_hash || !computername[0, computername_prefix.size].casecmp(computername_prefix).zero?)
     end
 
     def kinit_radcli_connect
@@ -81,10 +96,10 @@ module Proxy::AdRealm
       conn
     end
 
-    def radcli_join(hostfqdn, hostname, password)
+    def radcli_join(hostfqdn, computername, password)
       # Join computer
       enroll = Adcli::AdEnroll.new(@adconn)
-      enroll.set_computer_name(hostname)
+      enroll.set_computer_name(computername)
       enroll.set_host_fqdn(hostfqdn)
       enroll.set_domain_ou(@ou) if @ou
       enroll.set_computer_password(password)
@@ -96,19 +111,19 @@ module Proxy::AdRealm
       Array.new(20) { characters.sample }.join
     end
 
-    def radcli_password(hostname, password)
+    def radcli_password(computername, password)
       # Reset a computer's password
       enroll = Adcli::AdEnroll.new(@adconn)
-      enroll.set_computer_name(hostname)
+      enroll.set_computer_name(computername)
       enroll.set_domain_ou(@ou) if @ou
       enroll.set_computer_password(password)
       enroll.password
     end
 
-    def radcli_delete(hostname)
+    def radcli_delete(computername)
       # Delete a computer's account
       enroll = Adcli::AdEnroll.new(@adconn)
-      enroll.set_computer_name(hostname)
+      enroll.set_computer_name(computername)
       enroll.set_domain_ou(@ou) if @ou
       enroll.delete
     end
