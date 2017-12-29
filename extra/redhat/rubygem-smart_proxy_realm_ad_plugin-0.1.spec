@@ -17,7 +17,6 @@ Requires: foreman-proxy >= 1.15
 Requires: ruby(release)
 Requires: ruby
 Requires: ruby(rubygems)
-Requires: rubygem(passgen)
 Requires: rubygem(rkerberos)
 Requires: rubygem(radcli)
 BuildRequires: ruby(release)
