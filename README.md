@@ -18,7 +18,13 @@ It does the following:
 
   * When hosts are deleted in foreman it will delete the associated computer account in active directory.
   
-## Installation 
+# Installation 
+```
+sudo gem install smart_proxy_realm_ad_plugin
+```
+
+# Building
+
 See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins.
 
 Install this gem:
