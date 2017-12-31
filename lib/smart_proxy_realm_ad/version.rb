@@ -1,5 +1,5 @@
 module Proxy
   module AdRealm
-    VERSION = '1.0'.freeze
+    VERSION = '0.1'.freeze
   end
 end
