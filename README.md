@@ -19,6 +19,15 @@ It does the following:
 sudo gem install smart_proxy_realm_ad_plugin
 ```
 
+## Configuration
+Then enable this as a realm provider in foreman-proxy
+
+To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` and set:
+
+    :enabled: true
+    
+    :use_provider: realm_ad
+    
 # Building
 
 See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins.
@@ -48,16 +57,6 @@ Edit 'bundler.d/Gemfile.local.rb' and set:
     gem 'rkerberos', '>= 0.1.1'
     gem 'passgen'
 
-## Configuration
-
-Then enable this as a realm provider in foreman-proxy
-
-To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` and set:
-
-    :enabled: true
-    
-    :use_provider: realm_ad
-    
 ## Testing
 
      bundle exec rake test
