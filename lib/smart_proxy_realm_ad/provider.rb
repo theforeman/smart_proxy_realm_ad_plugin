@@ -18,8 +18,8 @@ module Proxy::AdRealm
       @domain = options[:realm].downcase
       @ou = options[:ou]
       @computername_prefix = options[:computername_prefix]
-      @computername_hash = options.fetch(:computername_hash, false)
-      @computername_use_fqdn = options.fetch(:computername_use_fqdn, false)
+      @computername_hash = options[:computername_hash]
+      @computername_use_fqdn = options[:computername_use_fqdn]
       logger.info 'Proxy::AdRealm: initialize...'
     end
 
