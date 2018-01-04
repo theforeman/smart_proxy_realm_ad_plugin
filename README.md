@@ -57,7 +57,7 @@ Edit 'bundler.d/Gemfile.local.rb' and set:
     gem 'rkerberos', '>= 0.1.1'
     gem 'passgen'
 
-## Testing
+## Testing.
 
      bundle exec rake test
 
