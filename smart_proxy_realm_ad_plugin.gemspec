@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.license     = 'GPL-3.0'
   s.authors     = ['Mårten Cassel']
   s.email       = ['marten.cassel@gmail.com']
-  s.homepage    = 'https://github.com/martencassel/smart_proxy_realm_ad_plugin'
+  s.homepage    = 'https://github.com/theforeman/smart_proxy_realm_ad_plugin'
 
   s.summary     = "A realm ad provider plugin for Foreman's smart proxy"
   s.description = "A realm ad provider plugin for Foreman's smart proxy"
