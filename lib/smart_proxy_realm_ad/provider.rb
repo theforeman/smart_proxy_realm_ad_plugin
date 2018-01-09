@@ -32,7 +32,7 @@ module Proxy::AdRealm
     end
 
     def create(realm, hostfqdn, params)
-      logger.info "Proxy::AdRealm: create... #{realm}, #{hostfqdn}, #{params}"
+      logger.debug "Proxy::AdRealm: create... #{realm}, #{hostfqdn}, #{params}"
       check_realm(realm)
       kinit_radcli_connect
 
@@ -51,7 +51,7 @@ module Proxy::AdRealm
     end
 
     def delete(realm, hostfqdn)
-      logger.info "Proxy::AdRealm: delete... #{realm}, #{hostfqdn}"
+      logger.debug "Proxy::AdRealm: delete... #{realm}, #{hostfqdn}"
       kinit_radcli_connect
       check_realm(realm)
       computername = hostfqdn_to_computername(hostfqdn)
