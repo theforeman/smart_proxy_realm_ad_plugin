@@ -58,8 +58,6 @@ module Proxy::AdRealm
       radcli_delete(computername)
     end
 
-    private
-
     def hostfqdn_to_computername(hostfqdn)
       computername = hostfqdn
 
