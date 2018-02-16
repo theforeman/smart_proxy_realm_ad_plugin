@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/theforeman/smart_proxy_realm_ad_plugin.svg?branch=master)](https://travis-ci.org/theforeman/smart_proxy_realm_ad_plugin)
+
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
 
