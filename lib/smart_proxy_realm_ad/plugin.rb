@@ -7,7 +7,7 @@ module Proxy::AdRealm
     load_classes ::Proxy::AdRealm::ConfigurationLoader
     load_dependency_injection_wirings ::Proxy::AdRealm::ConfigurationLoader
 
-    validate_presence :realm, :keytab_path, :principal, :domain_controller
+    validate_presence :realm, :keytab_path, :principal
     validate_readable :keytab_path
 
     plugin :realm_ad, ::Proxy::AdRealm::VERSION
