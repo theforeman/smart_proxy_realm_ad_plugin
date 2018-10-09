@@ -88,7 +88,7 @@ module Proxy::AdRealm
       # Connect to active directory
       conn = Adcli::AdConn.new(@domain)
       conn.set_domain_realm(@realm)
-      conn.set_domain_controller(@domain_controller)
+      conn.set_domain_controller(@domain_controller) unless @domain_controller.nil?
       conn.set_login_ccache_name('')
       conn.connect
       conn
