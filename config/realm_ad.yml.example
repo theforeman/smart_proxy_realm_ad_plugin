@@ -22,3 +22,6 @@
 
 # Optional:  use the fqdn of the host to generate the computername
 #:computername_use_fqdn: false
+
+# Optional: Ignore computer account already exists error (should only be used for computers already joined to AD)
+#:ignore_computername_exists: true
