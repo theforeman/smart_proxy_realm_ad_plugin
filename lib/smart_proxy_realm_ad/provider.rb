@@ -8,7 +8,7 @@ module Proxy::AdRealm
     include Proxy::Util
     include Proxy::Kerberos
 
-    attr_reader :realm, :keytab_path, :principal, :domain_controller, :domain, :ou, :computername_prefix, :computername_hash, :computername_use_fqdn
+    attr_reader :realm, :keytab_path, :principal, :domain_controller, :domain, :ou, :computername_prefix, :computername_hash, :computername_use_fqdn, :ignore_computername_exists
 
     def initialize(options = {})
       @realm = options[:realm]
@@ -20,6 +20,7 @@ module Proxy::AdRealm
       @computername_prefix = options[:computername_prefix]
       @computername_hash = options[:computername_hash]
       @computername_use_fqdn = options[:computername_use_fqdn]
+      @ignore_computername_exists = options[:ignore_computername_exists, false]
       logger.info 'Proxy::AdRealm: initialize...'
     end
 
@@ -101,7 +102,35 @@ module Proxy::AdRealm
       enroll.set_host_fqdn(hostfqdn)
       enroll.set_domain_ou(@ou) if @ou
       enroll.set_computer_password(password)
-      enroll.join
+      begin
+        enroll.join
+        return true
+      rescue RuntimeError => ex
+        # raise ex unless ex.message =~/Authentication error/
+        if ex.message =~ /Authentication error/
+          for i in 1..100
+            sleep(0.3)
+            begin
+              if enroll.response_to? :update
+                enroll.update
+              else
+                enroll.password
+              end
+              return true
+            rescue RuntimeError => ex
+              raise ex unless i < 99 and ex.message =~ /Authentication error/
+            end
+          end
+        elsif ex.message =~/already exists/
+          if ignore_computername_exists
+            return true
+          else
+            raise ex
+          end
+        else
+          raise ex
+        end
+      end
     end
 
     def generate_password
