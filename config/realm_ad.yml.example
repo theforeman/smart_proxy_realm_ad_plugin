@@ -1,5 +1,5 @@
 ---
-# Authentication for Kerberos-based Realms
+# Authentication for Kerberos-based Realms. This will be used to get the DNS of the domain.
 :realm: EXAMPLE.COM
 
 # Kerberos pricipal used to authenticate against Active Directory
@@ -8,7 +8,7 @@
 # Path to the keytab used to authenticate against Active Directory
 :keytab_path:  /etc/foreman-proxy/realm_ad.keytab
 
-# FQDN of the Domain Controller
+# Optional: Only use a specific domain controller. This will disable DNS based dc discovery.
 :domain_controller: dc.example.com
 
 # Optional: OU where the machine account shall be placed
