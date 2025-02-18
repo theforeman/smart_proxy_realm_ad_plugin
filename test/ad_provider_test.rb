@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rubygems'
 require 'test_helper'
 require 'smart_proxy_realm_ad/provider'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Proxy::AdRealm
   class ConfigurationLoader
     def load_classes

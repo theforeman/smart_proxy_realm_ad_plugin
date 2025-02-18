@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'smart_proxy_realm_ad/version'
 
 module Proxy::AdRealm
