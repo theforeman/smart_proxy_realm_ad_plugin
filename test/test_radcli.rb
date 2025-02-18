@@ -22,7 +22,6 @@ adconn.set_domain_controller("dc.example.com")
 adconn.set_login_ccache_name("")
 res = adconn.connect
 
-
 # Delete the computer accounts object
 enroll = Adcli::AdEnroll.new(adconn)
 enroll.set_computer_name("server1")
@@ -46,7 +45,6 @@ enroll.password()
 enroll = Adcli::AdEnroll.new(adconn)
 enroll.set_computer_name("server1")
 enroll.delete()
-
 
 # Create a computer account object in specific OU
 enroll = Adcli::AdEnroll.new(adconn)
