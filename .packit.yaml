@@ -1,0 +1,39 @@
+# See the documentation for more information:
+# https://packit.dev/docs/configuration/
+
+specfile_path: rubygem-smart_proxy_realm_ad_plugin.spec
+
+# add or remove files that should be synced
+files_to_sync:
+  - rubygem-smart_proxy_realm_ad_plugin.spec
+  - .packit.yaml
+
+# name in upstream package repository or registry (e.g. in PyPI)
+upstream_package_name: smart_proxy_realm_ad_plugin
+# downstream (Fedora) RPM package name
+downstream_package_name: rubygem-smart_proxy_realm_ad_plugin
+
+upstream_tag_template: "{version}"
+
+actions:
+  post-upstream-clone:
+    - "wget https://raw.githubusercontent.com/theforeman/foreman-packaging/rpm/develop/packages/plugins/rubygem-smart_proxy_realm_ad_plugin/rubygem-smart_proxy_realm_ad_plugin.spec -O rubygem-smart_proxy_realm_ad_plugin.spec"
+  get-current-version:
+    - ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec").first).version'
+  create-archive:
+    - gem build smart_proxy_realm_ad_plugin.gemspec
+    - bash -c "ls -1t ./smart_proxy_realm_ad_plugin-*.gem | head -n 1"
+
+jobs:
+  - job: copr_build
+    trigger: pull_request
+    targets:
+      rhel-9:
+        additional_repos:
+          - https://yum.theforeman.org/releases/nightly/el9/x86_64/
+          - https://yum.theforeman.org/plugins/nightly/el9/x86_64/
+    module_hotfixes: true
+
+srpm_build_deps:
+  - wget
+  - rubygems
