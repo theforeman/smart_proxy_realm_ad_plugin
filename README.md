@@ -1,7 +1,7 @@
 # Description
 This plugin adds a new realm provider for managing hosts in Active Directory.
 
-Useful if you directly integrate with Active Directory and dont use FreeIPA. 
+Useful if you directly integrate with Active Directory and dont use FreeIPA.
 
 If you use this plugin you let foreman-proxy provision/deprovision computer accounts and password and also distribute the password to a kickstart file.
 
@@ -9,12 +9,12 @@ It does the following:
 
   * When hosts are created in foreman it will create a new computer account in active directory
     and return the password to foreman so it can be used in the kickstart file.
-    
+
   * When hosts are rebuilt it will reset the computers account and return a new password to the kickstart file.
 
   * When hosts are deleted in foreman it will delete the associated computer account in active directory.
-  
-# Installation 
+
+# Installation
 ```
 sudo gem install smart_proxy_realm_ad_plugin
 ```
@@ -25,9 +25,9 @@ Then enable this as a realm provider in foreman-proxy
 To enable this realm provider, edit `/etc/foreman-proxy/settings.d/realm.yml` and set:
 
     :enabled: true
-    
+
     :use_provider: realm_ad
-    
+
 # Building
 
 See How_to_Install_a_Smart-Proxy_Plugin for how to install Smart Proxy plugins.
@@ -36,7 +36,7 @@ Install this gem:
 
 First clone this repo:
 ```
-git clone https://github.com/martencassel/smart_proxy_realm_ad_plugin 
+git clone https://github.com/martencassel/smart_proxy_realm_ad_plugin
 ```
 
 Then run bundle and gem install.
@@ -109,4 +109,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-

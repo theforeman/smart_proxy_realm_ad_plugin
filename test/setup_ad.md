@@ -34,3 +34,4 @@ marten@martenubuntu:~/src/smart-proxy$
 
 apt-get install adcli
 adcli info --domain=EXAMPLE.COM --domain-controller=dc.example.com
+
