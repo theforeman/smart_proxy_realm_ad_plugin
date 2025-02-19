@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'radcli'
+require 'rkerberos'
 
 # Connect using password
 adconn = Adcli::AdConn.new('example.com')
@@ -11,8 +12,6 @@ adconn.set_user_password('password')
 res = adconn.connect
 
 # Connect using kerberos keytab
-require 'radcli'
-require 'rkerberos'
 principal = 'realm-proxy'
 keytab='/etc/foreman-proxy/realm-proxy.keytab'
 krb5 = Kerberos::Krb5.new
