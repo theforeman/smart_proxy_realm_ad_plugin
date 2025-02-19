@@ -28,26 +28,26 @@ res = adconn.connect
 # Delete the computer accounts object
 enroll = Adcli::AdEnroll.new(adconn)
 enroll.set_computer_name('server1')
-enroll.delete()
+enroll.delete
 
 # Create a computer account object
 enroll = Adcli::AdEnroll.new(adconn)
 enroll.set_computer_name('server1')
 enroll.set_host_fqdn('server1.example.com')
 enroll.set_computer_password('password')
-enroll.join()
+enroll.join
 
 # Reset a computer accounts password
 adconn.set_domain_controller('dc.example.com')
 enroll = Adcli::AdEnroll.new(adconn)
 enroll.set_computer_name('server1')
 enroll.set_computer_password('newpass')
-enroll.password()
+enroll.password
 
 # Delete the computer accounts object
 enroll = Adcli::AdEnroll.new(adconn)
 enroll.set_computer_name('server1')
-enroll.delete()
+enroll.delete
 
 
 # Create a computer account object in specific OU
@@ -56,4 +56,4 @@ enroll.set_domain_ou('OU=Computers,OU=Foobar,DC=example,DC=com')
 enroll.set_computer_name('server1')
 enroll.set_host_fqdn('server1.example.com')
 enroll.set_computer_password('password')
-enroll.join()
+enroll.join
