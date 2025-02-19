@@ -8,7 +8,6 @@ adconn.set_domain_realm('EXAMPLE.COM')
 adconn.set_domain_controller('dc.example.com')
 adconn.set_login_user('realm-proxy')
 adconn.set_user_password('password')
-res = adconn.connect
 
 # Connect using kerberos keytab
 require 'radcli'
@@ -22,8 +21,6 @@ adconn = Adcli::AdConn.new('example.com')
 adconn.set_domain_realm('EXAMPLE.COM')
 adconn.set_domain_controller('dc.example.com')
 adconn.set_login_ccache_name('')
-res = adconn.connect
-
 
 # Delete the computer accounts object
 enroll = Adcli::AdEnroll.new(adconn)
