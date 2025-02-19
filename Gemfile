@@ -5,5 +5,5 @@ gemspec
 
 group :development do
   gem 'rack-test'
-  gem 'smart_proxy', :git => 'https://github.com/theforeman/smart-proxy.git', :branch => 'develop'
+  gem 'smart_proxy', github: 'theforeman/smart-proxy', branch: ENV.fetch('SMART_PROXY_BRANCH', 'develop')
 end
