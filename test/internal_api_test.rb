@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'rack/test'
 require 'realm/configuration_loader'
@@ -25,28 +27,28 @@ class InternalApiTest < Test::Unit::TestCase
   end
 
   def setup
-    @server = Proxy::AdRealm::Provider.new(:realm => "test.com")
+    @server = Proxy::AdRealm::Provider.new(:realm => 'test.com')
   end
 
   def test_create_host
-    realm = "TEST.COM"
-    hostname = "test.com"
+    realm = 'TEST.COM'
+    hostname = 'test.com'
     @server.expects(:create).with(realm, hostname, is_a(Hash))
     post "/#{realm}", :hostname => 'test.com'
     assert last_response.ok?, "Last response was not ok: #{last_response.status} #{last_response.body}"
   end
 
   def test_rebuild_host
-    realm = "TEST.COM"
-    hostname = "test.com"
+    realm = 'TEST.COM'
+    hostname = 'test.com'
     @server.expects(:create).with(realm, hostname, has_entry('rebuild', 'true'))
     post "/#{realm}", :hostname => 'test.com', :rebuild => true
     assert last_response.ok?, "Last response was not ok: #{last_response.status} #{last_response.body}"
   end
 
   def test_delete_host
-    realm = "TEST.COM"
-    hostname = "test.com"
+    realm = 'TEST.COM'
+    hostname = 'test.com'
     @server.expects(:delete).with(realm, hostname)
     delete "/#{realm}/#{hostname}"
     assert last_response.ok?, "Last response was not ok: #{last_response.status} #{last_response.body}"

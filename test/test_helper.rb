@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'test/unit'
-require 'mocha/setup'
+require 'mocha/test_unit'
 
 require 'smart_proxy_for_testing'
 
