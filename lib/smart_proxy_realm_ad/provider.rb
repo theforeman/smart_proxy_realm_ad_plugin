@@ -19,8 +19,8 @@ module Proxy::AdRealm
       @domain_controller = options[:domain_controller]
       @domain = options[:realm].downcase
       @ou = options[:ou]
-      @computername_prefix = options[:computername_prefix]
-      @computername_hash = options[:computername_hash]
+      @computername_prefix = options.fetch(:computername_prefix, '')
+      @computername_hash = options.fetch(:computername_hash, @null)
       @computername_use_fqdn = options[:computername_use_fqdn]
       logger.info 'Proxy::AdRealm: initialize...'
     end
@@ -78,7 +78,20 @@ module Proxy::AdRealm
     end
 
     def apply_computername_prefix?(computername)
-      !computername_prefix.nil? && !computername_prefix.empty? && (computername_hash || !computername[0, computername_prefix.size].casecmp(computername_prefix).zero?)
+      # Return false if computername is nil or empty
+      return false if computername.nil? || computername.empty?
+
+      # Return false if computername_prefix is nil or empty
+      return false if computername_prefix.nil? || computername_prefix.empty?
+
+      # Extract the prefix from computername with the same length as computername_prefix
+      extracted_prefix = computername[0, computername_prefix.size]
+
+      # Check if prefix is already in the beginning of computername string
+      prefix_matches = extracted_prefix.casecmp(computername_prefix).zero?
+      
+      # Return true if computername_hash is non empty or if the prefix does not match
+      computername_hash || !prefix_matches
     end
 
     def kinit_radcli_connect
