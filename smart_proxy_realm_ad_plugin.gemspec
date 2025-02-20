@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('../lib/smart_proxy_realm_ad/version', __FILE__)
 require 'date'
 

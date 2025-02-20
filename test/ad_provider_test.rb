@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rubygems'
 require 'test_helper'
 require 'smart_proxy_realm_ad/provider'
@@ -72,7 +74,7 @@ class RealmAdTest < Test::Unit::TestCase
   end
 
   def test_generate_password_returns_random_passwords
-    assert_not_equal @provider.generate_password, @provider.generate_password
+    refute_equal @provider.generate_password, @provider.generate_password
   end
 
   def test_generate_password_returns_20_char_long_password
@@ -81,22 +83,22 @@ class RealmAdTest < Test::Unit::TestCase
 
   def test_apply_computername_prefix_should_return_false_when_prefix_is_nil
     provider = Proxy::AdRealm::Provider.new(computername_prefix: nil, realm: 'example.com')
-    assert_false provider.apply_computername_prefix?('host.example.com')
+    refute provider.apply_computername_prefix?('host.example.com')
   end
 
   def test_apply_computername_prefix_should_return_false_when_prefix_is_empty
     provider = Proxy::AdRealm::Provider.new(computername_prefix: '', realm: 'example.com')
-    assert_false provider.apply_computername_prefix?('host.example.com')
+    refute provider.apply_computername_prefix?('host.example.com')
   end
 
   def test_apply_computername_prefix_should_return_false_when_hostname_contains_prefix
     provider = Proxy::AdRealm::Provider.new(computername_prefix: 'PREFIX-', realm: 'example.com')
-    assert_false provider.apply_computername_prefix?('prefix-host.example.com')
+    refute provider.apply_computername_prefix?('prefix-host.example.com')
   end
 
   def test_apply_computername_prefix_should_return_true_when_computername_hash_is_used
     provider = Proxy::AdRealm::Provider.new(computername_prefix: 'PREFIX-', computername_hash: true, realm: 'example.com')
-    assert_true provider.apply_computername_prefix?('host.example.com')
+    assert provider.apply_computername_prefix?('host.example.com')
   end
 
   def test_hostfqdn_to_computername_uses_prefix
@@ -119,7 +121,7 @@ class RealmAdTest < Test::Unit::TestCase
   end
 
   def test_find
-    assert_true @provider.find('a_host_fqdn')
+    assert @provider.find('a_host_fqdn')
   end
 
   def test_delete
