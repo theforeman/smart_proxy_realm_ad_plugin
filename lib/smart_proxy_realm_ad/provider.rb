@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'proxy/kerberos'
 require 'radcli'
 require 'digest'
@@ -10,7 +8,7 @@ module Proxy::AdRealm
     include Proxy::Util
     include Proxy::Kerberos
 
-    attr_reader :realm, :keytab_path, :principal, :domain_controller, :domain, :ou, :computername_prefix, :computername_hash, :computername_use_fqdn
+    attr_reader :realm, :keytab_path, :principal, :domain_controller, :domain, :ou, :computername_prefix, :computername_hash, :computername_use_fqdn, :ignore_computername_exists
 
     def initialize(options = {})
       @realm = options[:realm]
@@ -22,6 +20,7 @@ module Proxy::AdRealm
       @computername_prefix = options[:computername_prefix]
       @computername_hash = options[:computername_hash]
       @computername_use_fqdn = options[:computername_use_fqdn]
+      @ignore_computername_exists = options.fetch(:ignore_computername_exists, false)
       logger.info 'Proxy::AdRealm: initialize...'
     end
 
@@ -90,20 +89,25 @@ module Proxy::AdRealm
       # Connect to active directory
       conn = Adcli::AdConn.new(@domain)
       conn.set_domain_realm(@realm)
+      # Directly connect to the domain controller if specified, skip the SRV lookup
       conn.set_domain_controller(@domain_controller) unless @domain_controller.nil?
       conn.set_login_ccache_name('')
       conn.connect
       conn
     end
 
+    MAX_RETRIES = 100
+    RETRY_DELAY = 0.3
+
     def radcli_join(hostfqdn, computername, password)
-      # Join computer
-      enroll = Adcli::AdEnroll.new(@adconn)
-      enroll.set_computer_name(computername)
-      enroll.set_host_fqdn(hostfqdn)
-      enroll.set_domain_ou(@ou) if @ou
-      enroll.set_computer_password(password)
-      enroll.join
+      enroll = setup_enroll(hostfqdn, computername, password)
+      begin
+        enroll.join
+        logger.info "Successfully joined computer #{computername} with FQDN #{hostfqdn}"
+        true
+      rescue RuntimeError => ex
+        handle_runtime_error(ex, enroll)
+      end
     end
 
     def generate_password
@@ -127,5 +131,66 @@ module Proxy::AdRealm
       enroll.set_domain_ou(@ou) if @ou
       enroll.delete
     end
+
+    private
+
+    def setup_enroll(hostfqdn, computername, password)
+      enroll = Adcli::AdEnroll.new(@adconn)
+      enroll.set_computer_name(computername)
+      enroll.set_host_fqdn(hostfqdn)
+      enroll.set_domain_ou(@ou) if @ou
+      enroll.set_computer_password(password)
+      enroll
+    end
+
+    def handle_runtime_error(ex, enroll)
+      if ex.message =~ /Authentication error/
+        retry_authentication_error(enroll)
+      elsif ex.message =~ /already exists/
+        handle_already_exists_error
+      else
+        log_error("Failed to join computer: #{ex.message}")
+        raise ex
+      end
+    end
+
+    def retry_authentication_error(enroll)
+      MAX_RETRIES.times do |i|
+        sleep(RETRY_DELAY)
+        begin
+          if enroll.respond_to?(:update)
+            enroll.update
+          else
+            enroll.password
+          end
+          log_info("Successfully updated computer after authentication error")
+          return true
+        rescue RuntimeError => ex
+          if i >= MAX_RETRIES - 1 || ex.message !~ /Authentication error/
+            log_error("Failed to update computer after #{MAX_RETRIES} attempts: #{ex.message}")
+            raise ex
+          end
+        end
+      end
+    end
+
+    def handle_already_exists_error
+      if ignore_computername_exists
+        log_info("Computer name already exists, but ignoring as per configuration")
+        true
+      else
+        log_error("Computer name already exists and cannot proceed")
+        raise "Computer name already exists"
+      end
+    end
+
+    def log_info(message)
+      logger.info "Proxy::AdRealm: #{message}"
+    end
+
+    def log_error(message)
+      logger.error "Proxy::AdRealm: #{message}"
+    end
+
   end
 end
