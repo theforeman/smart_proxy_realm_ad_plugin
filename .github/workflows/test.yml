@@ -1,0 +1,16 @@
+name: CI
+
+on: pull_request
+
+concurrency:
+  group: ${{ github.ref_name }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests
+    uses: theforeman/actions/.github/workflows/smart_proxy_plugin.yml@v0
+    with:
+      extra_packages: libkrb5-dev libldap2-dev libsasl2-dev
+      plugin_repository: theforeman/smart_proxy_realm_ad_plugin
+
